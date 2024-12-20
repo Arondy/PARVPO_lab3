@@ -6,6 +6,10 @@ services:
       - "8080:8080"
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "${CPU_LIMIT_WEB}"
 
   nginx:
     build:
@@ -27,6 +31,10 @@ services:
       - rabbitmq
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "${CPU_LIMIT_WEB}"
 
 
   processor:
@@ -36,6 +44,10 @@ services:
       - rabbitmq
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "${CPU_LIMIT_P}"
 
   rabbitmq:
     container_name: rabbitmq
@@ -45,6 +57,10 @@ services:
       - "15672:15672" # Веб-интерфейс RabbitMQ
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: "${CPU_LIMIT_R}"
 
 networks:
   app-network:

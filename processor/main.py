@@ -6,7 +6,6 @@ from aio_pika.abc import AbstractRobustConnection
 
 # Конфигурация RabbitMQ и базы данных
 RABBITMQ_URL = "amqp://guest:guest@rabbitmq/"
-QUEUE_NAME = "order_queue"
 DATABASE_PATH = "./orders.db"
 
 # Создание таблицы для хранения заказов
