@@ -1,0 +1,50 @@
+services:
+  website:
+    build:
+      context: ./website
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - website
+      - webapi
+    networks:
+      - app-network
+
+  webapi:
+    build:
+      context: ./webapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - rabbitmq
+    networks:
+      - app-network
+
+
+  processor:
+    build:
+      context: ./processor
+    depends_on:
+      - rabbitmq
+    networks:
+      - app-network
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672" # Порт для сообщений
+      - "15672:15672" # Веб-интерфейс RabbitMQ
+    networks:
+      - app-network
+
+networks:
+  app-network:
